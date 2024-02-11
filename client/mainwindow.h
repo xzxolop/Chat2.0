@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTcpSocket>>
+#include <QTcpSocket>
 
 
 QT_BEGIN_NAMESPACE

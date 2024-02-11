@@ -19,6 +19,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     socket->connectToHost("127.0.0.1", 1234);
+    ui->textBrowser->append("Welcome!");
 }
 
 void MainWindow::sendToServer(QString mes)
@@ -27,6 +28,7 @@ void MainWindow::sendToServer(QString mes)
     QDataStream out(&data, QIODevice::WriteOnly);
     out << mes;
     socket->write(data);
+    ui->lineEdit->clear();
 }
 
 void MainWindow::ReadyRead()
