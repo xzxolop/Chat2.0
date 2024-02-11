@@ -9,16 +9,16 @@ class Server: public QTcpServer
 {
     Q_OBJECT
 public:
-    Server();
+    Server(QString ip, int port);
     void sendToClient(QString mes);
     QTcpSocket* socket;
 private:
-    QByteArray* data;
+    QByteArray data;
     QVector<QTcpSocket*> clients;
 
 public slots:
-    void incomingConnection(qintptr) override;
-    void readClientMessage();
+    void incomingConnection(qintptr);
+    void readyRead();
     void disconnect();
 };
 
