@@ -19,7 +19,7 @@ private:
 public slots:
     void incomingConnection(qintptr discriptor) override;
     void readyRead();
-    //void disconnect();
+    void disconnect();
 };
 
 #endif // SERVER_H

@@ -1,7 +1,5 @@
 #include "server.h"
-
-
-
+#include <QTextStream>
 
 Server::Server(QString ip, int port)
 {
@@ -27,7 +25,6 @@ void Server::sendToClient(QString mes)
     }
 }
 
-
 void Server::incomingConnection(qintptr discriptor)
 {
     try
@@ -35,7 +32,7 @@ void Server::incomingConnection(qintptr discriptor)
         socket = new QTcpSocket;
         socket->setSocketDescriptor(discriptor);
         connect(socket, &QTcpSocket::readyRead, this, &Server::readyRead);
-        connect(socket, &QTcpSocket::disconnected, this, &Server::deleteLater);
+        connect(socket, &QTcpSocket::disconnected, this, &Server::disconnect);
         clients.push_back(socket);
         qDebug() << "Client" << discriptor << "connected";
     }
@@ -61,3 +58,25 @@ void Server::readyRead()
         qDebug() << "Error: failed to read message";
     }
 }
+
+void printClients(const QVector<QTcpSocket*>& v)
+{
+    QTextStream cout(stdout);
+    for(auto x: v)
+    {
+        cout << x->socketDescriptor() << ' ';
+    }
+    cout << "\n";
+}
+
+void Server::disconnect()
+{
+    socket = (QTcpSocket*)sender();
+    qDebug() << "Client disconnected" << socket->socketDescriptor();
+    clients.removeOne(socket);
+    printClients(clients);
+
+}
+
+
+
