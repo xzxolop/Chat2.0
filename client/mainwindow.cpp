@@ -22,6 +22,12 @@ void MainWindow::on_connectButton_clicked()
     ui->textBrowser->append("Welcome!");
 }
 
+void MainWindow::on_disconnectButton_clicked()
+{
+    socket->disconnected();
+    ui->textBrowser->append("Buy!");
+}
+
 void MainWindow::sendToServer(QString mes)
 {
     data.clear();
@@ -52,9 +58,6 @@ void MainWindow::on_sendButton_clicked()
     sendToServer(ui->lineEdit->text());
 }
 
-void MainWindow::on_disconnectButton_clicked()
-{
 
-}
 
 
