@@ -21,7 +21,10 @@ void Server::sendToClient(QString mes)
     data.clear();
     QDataStream out(&data, QIODevice::WriteOnly);
     out << mes;
-    socket->write(data);
+    for(int i=0; i<clients.size(); i++)
+    {
+        clients[i]->write(data);
+    }
 }
 
 
