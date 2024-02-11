@@ -17,9 +17,9 @@ private:
     QVector<QTcpSocket*> clients;
 
 public slots:
-    void incomingConnection(qintptr);
+    void incomingConnection(qintptr discriptor) override;
     void readyRead();
-    void disconnect();
+    //void disconnect();
 };
 
 #endif // SERVER_H
