@@ -16,7 +16,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_connectButton_clicked()
 {
     socket->connectToHost("127.0.0.1", 1234);
     ui->textBrowser->append("Welcome!");
@@ -47,8 +47,14 @@ void MainWindow::ReadyRead()
 }
 
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_sendButton_clicked()
 {
     sendToServer(ui->lineEdit->text());
 }
+
+void MainWindow::on_disconnectButton_clicked()
+{
+
+}
+
 

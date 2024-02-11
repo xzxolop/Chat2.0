@@ -20,9 +20,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_sendButton_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_disconnectButton_clicked();
+
+    void on_connectButton_clicked();
 
 private:
     Ui::MainWindow *ui;
