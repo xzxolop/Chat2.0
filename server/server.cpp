@@ -14,7 +14,15 @@ Server::Server(QString ip, int port)
 
 }
 
-void Server::sendToClient(QString mes)
+void Server::sendToClient(QString mes, QTcpSocket* client)
+{
+    data.clear();
+    QDataStream out(&data, QIODevice::WriteOnly);
+    out << mes;
+    client->write(data);
+}
+
+void Server::sendToClients(QString mes)
 {
     data.clear();
     QDataStream out(&data, QIODevice::WriteOnly);
@@ -51,7 +59,7 @@ void Server::readyRead()
         QString mes;
         in >> mes;
         qDebug() << "Server read:" << mes;
-        sendToClient(mes);
+        sendToClients(mes);
     }
     else
     {

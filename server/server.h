@@ -10,7 +10,8 @@ class Server: public QTcpServer
     Q_OBJECT
 public:
     Server(QString ip, int port);
-    void sendToClient(QString mes);
+    void sendToClients(QString mes);
+    void sendToClient(QString mes, QTcpSocket* client);
     QTcpSocket* socket;
 private:
     QByteArray data;
