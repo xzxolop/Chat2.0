@@ -1,14 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QAbstractSocket>
+#include <QException>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    socket = new QTcpSocket(this);
-    connect(socket, &QTcpSocket::readyRead, this, &MainWindow::ReadyRead);
-    connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
+
 }
 
 MainWindow::~MainWindow()
@@ -18,8 +18,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_connectButton_clicked()
 {
-    socket->connectToHost("127.0.0.1", 1234);
-    ui->textBrowser->append("Welcome!");
+    try
+    {
+        createSocket();
+        socket->connectToHost("127.0.0.1", 1234);
+        ui->textBrowser->append("Welcome!");
+    }
+    catch(QException& ex)
+    {
+        ui->textBrowser->append("Error: failed to conection to server");
+    }
 }
 
 void MainWindow::on_disconnectButton_clicked()
@@ -35,6 +43,13 @@ void MainWindow::sendToServer(QString mes)
     out << mes;
     socket->write(data);
     ui->lineEdit->clear();
+}
+
+void MainWindow::createSocket()
+{
+    socket = new QTcpSocket(this);
+    connect(socket, &QTcpSocket::readyRead, this, &MainWindow::ReadyRead);
+    connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
 }
 
 void MainWindow::ReadyRead()
@@ -57,6 +72,7 @@ void MainWindow::on_sendButton_clicked()
 {
     sendToServer(ui->lineEdit->text());
 }
+
 
 
 

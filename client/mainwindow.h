@@ -31,6 +31,7 @@ private:
     QTcpSocket *socket;
     QByteArray data;
     void sendToServer(QString mes);
+    void createSocket();
 
 public slots:
     void ReadyRead();
