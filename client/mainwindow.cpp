@@ -32,7 +32,7 @@ void MainWindow::on_connectButton_clicked()
 
 void MainWindow::on_disconnectButton_clicked()
 {
-    ui->textBrowser->append("Buy!");
+    ui->textBrowser->append("Not impemented. If you want to disconnect, close the client window.");
 }
 
 void MainWindow::sendToServer(QString mes)
