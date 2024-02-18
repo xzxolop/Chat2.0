@@ -39,6 +39,7 @@ void Server::incomingConnection(qintptr discriptor)
     {
         socket = new QTcpSocket;
         socket->setSocketDescriptor(discriptor);
+        socket->setProperty("id", discriptor);
         connect(socket, &QTcpSocket::readyRead, this, &Server::readyRead);
         connect(socket, &QTcpSocket::disconnected, this, &Server::disconnect);
         clients.push_back(socket);
@@ -80,10 +81,8 @@ void printClients(const QVector<QTcpSocket*>& v)
 void Server::disconnect()
 {
     socket = (QTcpSocket*)sender();
-    qDebug() << "Client disconnected" << socket->socketDescriptor();
+    qDebug() << "Client disconnected" << (socket->property("id")).toLongLong();
     clients.removeOne(socket);
-    printClients(clients);
-
 }
 
 
