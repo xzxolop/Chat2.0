@@ -4,6 +4,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QVector>
+#include <QSqlDatabase>
 
 class Server: public QTcpServer
 {
@@ -16,6 +17,7 @@ public:
 private:
     QByteArray data;
     QVector<QTcpSocket*> clients;
+    QSqlDatabase db;
 
 public slots:
     void incomingConnection(qintptr discriptor) override;

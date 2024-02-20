@@ -12,6 +12,16 @@ Server::Server(QString ip, int port)
         qDebug() << "Error: failed to start server";
     }
 
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("./testDB.db");
+    if(db.open())
+    {
+        qDebug() << "Db open";
+    }
+    else
+    {
+        qDebug() << "Db no open";
+    }
 }
 
 void Server::sendToClient(QString mes, QTcpSocket* client)
