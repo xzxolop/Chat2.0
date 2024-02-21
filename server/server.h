@@ -7,6 +7,8 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 
+#include "dbform.h"
+
 class Server: public QTcpServer
 {
     Q_OBJECT
