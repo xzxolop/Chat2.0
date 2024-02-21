@@ -22,6 +22,10 @@ Server::Server(QString ip, int port)
     {
         qDebug() << "Db no open";
     }
+
+    query = new QSqlQuery(db);
+    query->exec("CREATE TABLE Clients(Name TEXT, id int);");
+
 }
 
 void Server::sendToClient(QString mes, QTcpSocket* client)
