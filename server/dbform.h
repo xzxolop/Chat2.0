@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QApplication>
+#include <QSqlTableModel>
+#include <QTableView>
 
 namespace Ui {
 class DBForm;
@@ -15,6 +17,8 @@ class DBForm : public QWidget
 public:
     explicit DBForm(QWidget *parent = nullptr);
     ~DBForm();
+    void setModel(QSqlTableModel* model);
+    QTableView *tableView;
 
 private:
     Ui::DBForm *ui;

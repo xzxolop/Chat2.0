@@ -2,6 +2,7 @@
 #include <QTextStream>
 #include <QApplication>
 
+
 Server::Server(QString ip, int port)
 {
     if(this->listen(QHostAddress(ip), port))
@@ -27,6 +28,12 @@ Server::Server(QString ip, int port)
     query = new QSqlQuery(db);
     query->exec("CREATE TABLE Clients(Name TEXT, id int);");
 
+    dbform = new DBForm();
+    dbmodel = new QSqlTableModel(dbform, db);
+    dbmodel->setTable("Clients");
+    dbmodel->select();
+    dbform->tableView->setModel(dbmodel);
+    dbform->show();
 }
 
 void Server::incomingConnection(qintptr discriptor)
@@ -100,9 +107,6 @@ void Server::disconnect()
     clients.removeOne(socket);
 }
 
-void Server::createForm()
-{
-    dbform = new DBForm();
-}
+
 
 

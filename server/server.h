@@ -6,6 +6,7 @@
 #include <QVector>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QSqlTableModel>
 
 #include "dbform.h"
 
@@ -18,12 +19,13 @@ public:
     void sendToClient(QString mes, QTcpSocket* client);
     void createForm();
     QTcpSocket* socket;
-    QWidget* dbform;
+    DBForm* dbform;
 private:
     QByteArray data;
     QVector<QTcpSocket*> clients;
     QSqlDatabase db;
     QSqlQuery *query;
+    QSqlTableModel* dbmodel;
 
 public slots:
     void incomingConnection(qintptr discriptor) override;
