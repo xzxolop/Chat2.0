@@ -32,6 +32,9 @@ Server::Server(QString ip, int port)
     dbmodel = new QSqlTableModel(dbform, db);
     dbmodel->setTable("Clients");
     dbmodel->select();
+
+
+
     dbform->tableView->setModel(dbmodel);
     dbform->show();
 }
@@ -47,6 +50,14 @@ void Server::incomingConnection(qintptr discriptor)
         connect(socket, &QTcpSocket::disconnected, this, &Server::disconnect);
         clients.push_back(socket);
         qDebug() << "Client" << discriptor << "connected";
+        //dbmodel->insertRow(dbmodel->rowCount());
+
+
+        int row = dbmodel->rowCount();
+        dbmodel->insertRow(row);
+        dbmodel->setData(dbmodel->index(row, 0), "John", Qt::EditRole); // Запись в колонку name
+        dbmodel->setData(dbmodel->index(row, 1), discriptor, Qt::EditRole); // Запись в колонку id
+        dbmodel->submitAll();
     }
     catch(const std::exception& ex)
     {
