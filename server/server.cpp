@@ -1,5 +1,6 @@
 #include "server.h"
 #include <QTextStream>
+#include <QApplication>
 
 Server::Server(QString ip, int port)
 {
@@ -99,5 +100,9 @@ void Server::disconnect()
     clients.removeOne(socket);
 }
 
+void Server::createForm()
+{
+    dbform = new DBForm();
+}
 
 

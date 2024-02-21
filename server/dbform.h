@@ -2,6 +2,7 @@
 #define DBFORM_H
 
 #include <QWidget>
+#include <QApplication>
 
 namespace Ui {
 class DBForm;

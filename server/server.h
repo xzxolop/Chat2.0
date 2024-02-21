@@ -16,7 +16,9 @@ public:
     Server(QString ip, int port);
     void sendToClients(QString mes);
     void sendToClient(QString mes, QTcpSocket* client);
+    void createForm();
     QTcpSocket* socket;
+    QWidget* dbform;
 private:
     QByteArray data;
     QVector<QTcpSocket*> clients;
