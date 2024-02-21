@@ -28,6 +28,24 @@ Server::Server(QString ip, int port)
 
 }
 
+void Server::incomingConnection(qintptr discriptor)
+{
+    try
+    {
+        socket = new QTcpSocket;
+        socket->setSocketDescriptor(discriptor);
+        socket->setProperty("id", discriptor);
+        connect(socket, &QTcpSocket::readyRead, this, &Server::readyRead);
+        connect(socket, &QTcpSocket::disconnected, this, &Server::disconnect);
+        clients.push_back(socket);
+        qDebug() << "Client" << discriptor << "connected";
+    }
+    catch(const std::exception& ex)
+    {
+        qDebug() << "Error: failed client connection" << ex.what();
+    }
+}
+
 void Server::sendToClient(QString mes, QTcpSocket* client)
 {
     data.clear();
@@ -44,24 +62,6 @@ void Server::sendToClients(QString mes)
     for(int i=0; i<clients.size(); i++)
     {
         clients[i]->write(data);
-    }
-}
-
-void Server::incomingConnection(qintptr discriptor)
-{
-    try
-    {
-        socket = new QTcpSocket;
-        socket->setSocketDescriptor(discriptor);
-        socket->setProperty("id", discriptor);
-        connect(socket, &QTcpSocket::readyRead, this, &Server::readyRead);
-        connect(socket, &QTcpSocket::disconnected, this, &Server::disconnect);
-        clients.push_back(socket);
-        qDebug() << "Client" << discriptor << "connected";
-    }
-    catch(const std::exception& ex)
-    {
-        qDebug() << "Error: failed client connection" << ex.what();
     }
 }
 
